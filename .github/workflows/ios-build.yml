@@ -25,7 +25,7 @@ jobs:
         dotnet-version: '9.0.100'
 
     - name: Install MAUI workload
-      run: dotnet workload install maui-ios
+      run: dotnet workload install maui-ios --skip-manifest-update
 
     - name: Restore dependencies
       run: dotnet restore TreninkovyPlanovac.csproj -p:TargetFrameworks=net9.0-ios
