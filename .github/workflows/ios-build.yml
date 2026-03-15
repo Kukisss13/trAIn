@@ -9,15 +9,18 @@ on:
 
 jobs:
   build-ios:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
     - uses: actions/checkout@v4
 
+    - name: Select latest Xcode
+      run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+
     - name: Setup .NET 9
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: '9.0.100'
 
     - name: Install MAUI workload
       run: dotnet workload install maui-ios
