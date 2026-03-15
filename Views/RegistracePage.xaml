@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.RegistracePage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*" Padding="20,40,20,20">
+
+        <!-- Zpět + Hlavička -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+            <Frame Grid.Column="0"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0" BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnZpetClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="‹" FontSize="24" TextColor="{DynamicResource TextPrimary}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+            <Label Grid.Column="1" x:Name="HlavickaLabel" Text="{Binding [Registration], Source={x:Static h:Loc.Instance}}"
+                   FontSize="22" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"
+                   VerticalOptions="Center" Padding="15,0,0,0" />
+        </Grid>
+
+        <!-- Formulář -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="14" Padding="10,20,10,0">
+
+                <!-- Ikona metody -->
+                <Frame x:Name="MetodaIkonaFrame"
+                       BackgroundColor="{DynamicResource IconBg}"
+                       CornerRadius="24"
+                       WidthRequest="64" HeightRequest="64"
+                       Padding="0" BorderColor="Transparent"
+                       HorizontalOptions="Center">
+                    <Label x:Name="MetodaIkona" Text="" FontSize="26"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Frame>
+
+                <Label x:Name="PopisLabel" Text=""
+                       FontSize="14" TextColor="{StaticResource Gray400}"
+                       HorizontalOptions="Center" Margin="0,0,0,10" />
+
+                <!-- Jméno -->
+                <Label Text="{Binding [Name], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                       TextColor="{StaticResource Gray300}" Padding="4,0,0,0" />
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="14" Padding="4" BorderColor="Transparent">
+                    <Entry x:Name="JmenoEntry"
+                           Placeholder="{Binding [YourName], Source={x:Static h:Loc.Instance}}"
+                           PlaceholderColor="{StaticResource Gray500}"
+                           TextColor="{DynamicResource TextPrimary}" BackgroundColor="Transparent"
+                           FontSize="16" />
+                </Frame>
+
+                <!-- Email pole -->
+                <VerticalStackLayout x:Name="EmailPanel" Spacing="6">
+                    <Label Text="{Binding [Email], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                           TextColor="{DynamicResource TextSecondary}" Padding="4,0,0,0" />
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14" Padding="4" BorderColor="Transparent">
+                        <Entry x:Name="EmailEntry"
+                               Placeholder="tvuj@email.cz"
+                               PlaceholderColor="{StaticResource Gray500}"
+                               TextColor="{DynamicResource TextPrimary}" BackgroundColor="Transparent"
+                               FontSize="16" Keyboard="Email" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Telefon pole -->
+                <VerticalStackLayout x:Name="TelefonPanel" Spacing="6">
+                    <Label Text="{Binding [PhoneNumber], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                           TextColor="{DynamicResource TextSecondary}" Padding="4,0,0,0" />
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14" Padding="4" BorderColor="Transparent">
+                        <Entry x:Name="TelefonEntry"
+                               Placeholder="+420 123 456 789"
+                               PlaceholderColor="{StaticResource Gray500}"
+                               TextColor="{DynamicResource TextPrimary}" BackgroundColor="Transparent"
+                               FontSize="16" Keyboard="Telephone" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Apple info -->
+                <VerticalStackLayout x:Name="ApplePanel" Spacing="6">
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14" Padding="16" BorderColor="Transparent">
+                        <Label Text="{Binding [AppleRedirectInfo], Source={x:Static h:Loc.Instance}}"
+                               FontSize="13" TextColor="{StaticResource Gray400}"
+                               LineBreakMode="WordWrap" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Tlačítko -->
+                <Button x:Name="PotvrditButton"
+                        Text="{Binding [Register], Source={x:Static h:Loc.Instance}}"
+                        FontSize="17" HeightRequest="54" CornerRadius="14"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" FontAttributes="Bold"
+                        Clicked="OnPotvrditClicked"
+                        Margin="0,10,0,0" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.CviceniPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Title="{Binding [ExerciseDatabase], Source={x:Static h:Loc.Instance}}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20,40,20,20">
+
+        <!-- Zpět + Hlavička + Přidat -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,15">
+            <Frame Grid.Column="0"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0"
+                   BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnZpetClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="‹" FontSize="24" TextColor="{DynamicResource TextPrimary}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,0,0,0">
+                <Label Text="{Binding [ExerciseDatabase], Source={x:Static h:Loc.Instance}}"
+                       FontSize="22" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" />
+                <Label x:Name="PocetLabel"
+                       Text="{Binding [Loading], Source={x:Static h:Loc.Instance}}"
+                       FontSize="13" TextColor="{DynamicResource TextTertiary}" />
+            </VerticalStackLayout>
+            <Frame Grid.Column="2"
+                   BackgroundColor="{StaticResource Primary}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0"
+                   BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnPridatCvikClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="+" FontSize="26" FontAttributes="Bold" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+        </Grid>
+
+        <!-- Kategorie - horizontální scroll -->
+        <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never"
+                    Margin="0,0,0,15">
+            <HorizontalStackLayout x:Name="KategorieStack" Spacing="8" />
+        </ScrollView>
+
+        <!-- Seznam cviků -->
+        <CollectionView Grid.Row="2" x:Name="CviceniList"
+                        SelectionMode="None"
+                        VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14"
+                           Padding="16,14"
+                           Margin="0,0,0,8"
+                           BorderColor="Transparent"
+                           HasShadow="False">
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Frame Grid.Column="0"
+                                   BackgroundColor="{Binding KategorieBarva}"
+                                   CornerRadius="12"
+                                   WidthRequest="46" HeightRequest="46"
+                                   Padding="0"
+                                   BorderColor="Transparent">
+                                <Label Text="{Binding KategorieIkona}"
+                                       FontSize="22"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="12,0,0,0">
+                                <Label Text="{Binding Nazev}"
+                                       FontSize="15" FontAttributes="Bold"
+                                       TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding Kategorie}"
+                                       FontSize="12"
+                                       TextColor="{Binding KategorieBarva}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" FontSize="22"
+                                   TextColor="{DynamicResource TextTertiary}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                    <Label Text="{Binding [NoExercises], Source={x:Static h:Loc.Instance}}" FontSize="18" TextColor="{DynamicResource TextTertiary}"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

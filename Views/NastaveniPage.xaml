@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.NastaveniPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*" Padding="20,40,20,20">
+
+        <!-- Zpět + Hlavička -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+            <Frame Grid.Column="0"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0"
+                   BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnZpetClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="‹" FontSize="24" TextColor="{DynamicResource TextPrimary}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+            <Label Grid.Column="1" Text="{Binding [Settings], Source={x:Static h:Loc.Instance}}"
+                   FontSize="22" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"
+                   VerticalOptions="Center" Padding="15,0,0,0" />
+        </Grid>
+
+        <!-- Obsah -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12">
+
+                <!-- === NEPŘIHLÁŠENÝ STAV === -->
+                <VerticalStackLayout x:Name="NeprihlasenyPanel" Spacing="12" IsVisible="True">
+
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="20,24"
+                           BorderColor="Transparent">
+                        <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                            <Frame BackgroundColor="{DynamicResource IconBg}"
+                                   CornerRadius="30"
+                                   WidthRequest="70" HeightRequest="70"
+                                   Padding="0" BorderColor="Transparent"
+                                   HorizontalOptions="Center">
+                                <Label Text="&#x1F464;" FontSize="30"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <Label Text="{Binding [NoAccount], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="18" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SignInToSync], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="13" TextColor="{DynamicResource TextTertiary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Email -->
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnEmailClicked" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="18,16">
+                            <Frame Grid.Column="0"
+                                   BackgroundColor="{DynamicResource IconBg}"
+                                   CornerRadius="12"
+                                   WidthRequest="44" HeightRequest="44"
+                                   Padding="0" BorderColor="Transparent">
+                                <Label Text="&#x2709;" FontSize="20"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="14,0,0,0">
+                                <Label Text="{Binding [Email], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="16" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding [RegisterOrSignIn], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" FontSize="26"
+                                   TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Telefon -->
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTelefonClicked" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="18,16">
+                            <Frame Grid.Column="0"
+                                   BackgroundColor="{DynamicResource IconBg}"
+                                   CornerRadius="12"
+                                   WidthRequest="44" HeightRequest="44"
+                                   Padding="0" BorderColor="Transparent">
+                                <Label Text="&#x1F4F1;" FontSize="20"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="14,0,0,0">
+                                <Label Text="{Binding [Phone], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="16" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding [SignInViaSms], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" FontSize="26"
+                                   TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Apple ID -->
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAppleClicked" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="18,16">
+                            <Frame Grid.Column="0"
+                                   BackgroundColor="{DynamicResource IconBg}"
+                                   CornerRadius="12"
+                                   WidthRequest="44" HeightRequest="44"
+                                   Padding="0" BorderColor="Transparent">
+                                <Label Text="&#xF8FF;" FontSize="20" TextColor="White"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="14,0,0,0">
+                                <Label Text="{Binding [AppleId], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="16" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding [QuickSignInApple], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" FontSize="26"
+                                   TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                </VerticalStackLayout>
+
+                <!-- === PŘIHLÁŠENÝ STAV === -->
+                <VerticalStackLayout x:Name="PrihlasenyPanel" Spacing="12" IsVisible="False">
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="20,24"
+                           BorderColor="Transparent">
+                        <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                            <Frame BackgroundColor="{StaticResource Primary}"
+                                   CornerRadius="30"
+                                   WidthRequest="70" HeightRequest="70"
+                                   Padding="0" BorderColor="Transparent"
+                                   HorizontalOptions="Center">
+                                <Label x:Name="AvatarLabel" Text="?"
+                                       FontSize="28" FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <Label x:Name="JmenoLabel" Text=""
+                                   FontSize="20" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                            <Label x:Name="KontaktLabel" Text=""
+                                   FontSize="14" TextColor="{DynamicResource TextTertiary}"
+                                   HorizontalOptions="Center" />
+                            <Label x:Name="MetodaLabel" Text=""
+                                   FontSize="12" TextColor="{StaticResource Gray500}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Button Text="{Binding [SignOut], Source={x:Static h:Loc.Instance}}"
+                            FontSize="15" HeightRequest="48" CornerRadius="14"
+                            BackgroundColor="#2A1515" TextColor="#E94560"
+                            Clicked="OnOdhlasitClicked"
+                            Margin="0,8,0,0" />
+                </VerticalStackLayout>
+
+                <!-- === DATABÁZE CVIKŮ === -->
+                <Label Text="{Binding [Exercises], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}" Margin="4,16,0,4" />
+
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="0"
+                       BorderColor="Transparent" HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnZasobaCvikuClicked" />
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="18,16">
+                        <Frame Grid.Column="0"
+                               BackgroundColor="{DynamicResource IconBg}"
+                               CornerRadius="12"
+                               WidthRequest="44" HeightRequest="44"
+                               Padding="0" BorderColor="Transparent">
+                            <Label Text="&#x1F4AA;" FontSize="20"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Frame>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="14,0,0,0">
+                            <Label Text="{Binding [ExerciseLibrary], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="16" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [ExerciseLibraryDesc], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="26"
+                               TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                    </Grid>
+                </Frame>
+
+                <!-- === AI TRENÉR === -->
+                <Label Text="{Binding [AiTrainer], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}" Margin="4,16,0,4" />
+
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="20"
+                       BorderColor="Transparent" HasShadow="False">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="{Binding [GeminiApiKey], Source={x:Static h:Loc.Instance}}" FontSize="12"
+                               TextColor="{DynamicResource TextTertiary}" />
+                        <Entry x:Name="ApiKeyEntry" Placeholder="AIza..." IsPassword="True"
+                               FontSize="15" TextColor="{DynamicResource TextPrimary}"
+                               PlaceholderColor="{DynamicResource TextTertiary}"
+                               BackgroundColor="{DynamicResource CardBgLight}" />
+                        <Button Text="{Binding [SaveApiKey], Source={x:Static h:Loc.Instance}}"
+                                FontSize="14" HeightRequest="42" CornerRadius="12"
+                                BackgroundColor="{StaticResource Primary}" TextColor="White"
+                                Clicked="OnUlozitApiKeyClicked" />
+                        <Label x:Name="ApiKeyStatusLabel"
+                               Text="{Binding [KeyNotSet], Source={x:Static h:Loc.Instance}}"
+                               FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- === JAZYK === -->
+                <Label Text="{Binding [Language], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}" Margin="4,16,0,4" />
+
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="0"
+                       BorderColor="Transparent" HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="18,16">
+                        <Frame Grid.Column="0"
+                               BackgroundColor="{DynamicResource IconBg}"
+                               CornerRadius="12"
+                               WidthRequest="44" HeightRequest="44"
+                               Padding="0" BorderColor="Transparent">
+                            <Label Text="&#x1F310;" FontSize="20"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Frame>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="14,0,0,0">
+                            <Label x:Name="LanguageLabel" Text=""
+                                   FontSize="16" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [LanguageDesc], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                        <Grid Grid.Column="2" ColumnDefinitions="Auto,Auto" ColumnSpacing="8" VerticalOptions="Center">
+                            <Button x:Name="BtnCzech" Text="CZ" FontSize="13" HeightRequest="36" WidthRequest="50"
+                                    CornerRadius="10" Clicked="OnCzechClicked" />
+                            <Button x:Name="BtnEnglish" Grid.Column="1" Text="EN" FontSize="13" HeightRequest="36" WidthRequest="50"
+                                    CornerRadius="10" Clicked="OnEnglishClicked" />
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <!-- === VZHLED === -->
+                <Label Text="{Binding [Appearance], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}" Margin="4,16,0,4" />
+
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="0"
+                       BorderColor="Transparent" HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="18,16">
+                        <Frame Grid.Column="0"
+                               BackgroundColor="{DynamicResource IconBg}"
+                               CornerRadius="12"
+                               WidthRequest="44" HeightRequest="44"
+                               Padding="0" BorderColor="Transparent">
+                            <Label x:Name="ThemeIcon" Text="&#x1F319;" FontSize="20"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Frame>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="14,0,0,0">
+                            <Label x:Name="ThemeLabel" Text=""
+                                   FontSize="16" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label x:Name="ThemeSubLabel" Text=""
+                                   FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                        <Switch x:Name="ThemeSwitch" Grid.Column="2"
+                                VerticalOptions="Center" OnColor="{StaticResource Primary}"
+                                Toggled="OnThemeToggled" />
+                    </Grid>
+                </Frame>
+
+                <!-- === PROFIL === -->
+                <Label Text="{Binding [Profile], Source={x:Static h:Loc.Instance}}" FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}" Margin="4,16,0,4" />
+
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="20"
+                       BorderColor="Transparent" HasShadow="False">
+                    <VerticalStackLayout Spacing="16">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding [Name], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                            <Entry x:Name="ProfilJmenoEntry" Placeholder="{Binding [YourName], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="15" TextColor="{DynamicResource TextPrimary}"
+                                   PlaceholderColor="{DynamicResource TextTertiary}"
+                                   BackgroundColor="{DynamicResource CardBgLight}" />
+                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                            <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                <Label Text="{Binding [Age], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                                <Entry x:Name="ProfilVekEntry" Placeholder="25" Keyboard="Numeric"
+                                       FontSize="15" TextColor="{DynamicResource TextPrimary}"
+                                       PlaceholderColor="{DynamicResource TextTertiary}"
+                                       BackgroundColor="{DynamicResource CardBgLight}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                <Label Text="{Binding [Gender], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                                    <Button x:Name="BtnMuz" Grid.Column="0"
+                                            Text="{Binding [Male], Source={x:Static h:Loc.Instance}}"
+                                            FontSize="13" HeightRequest="40" CornerRadius="10"
+                                            BackgroundColor="{DynamicResource CardBgLight}"
+                                            TextColor="{DynamicResource TextSecondary}"
+                                            Clicked="OnPohlaviClicked" />
+                                    <Button x:Name="BtnZena" Grid.Column="1"
+                                            Text="{Binding [Female], Source={x:Static h:Loc.Instance}}"
+                                            FontSize="13" HeightRequest="40" CornerRadius="10"
+                                            BackgroundColor="{DynamicResource CardBgLight}"
+                                            TextColor="{DynamicResource TextSecondary}"
+                                            Clicked="OnPohlaviClicked" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                            <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                <Label Text="{Binding [WeightKg], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                                <Entry x:Name="ProfilVahaEntry" Placeholder="75" Keyboard="Numeric"
+                                       FontSize="15" TextColor="{DynamicResource TextPrimary}"
+                                       PlaceholderColor="{DynamicResource TextTertiary}"
+                                       BackgroundColor="{DynamicResource CardBgLight}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                <Label Text="{Binding [HeightCm], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                                <Entry x:Name="ProfilVyskaEntry" Placeholder="180" Keyboard="Numeric"
+                                       FontSize="15" TextColor="{DynamicResource TextPrimary}"
+                                       PlaceholderColor="{DynamicResource TextTertiary}"
+                                       BackgroundColor="{DynamicResource CardBgLight}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding [YourGoal], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+                                <Button x:Name="BtnCilNabrat" Grid.Row="0" Grid.Column="0"
+                                        Text="{Binding [BuildMuscle], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="12" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnCilClicked" ClassId="nabrat" />
+                                <Button x:Name="BtnCilZhubnout" Grid.Row="0" Grid.Column="1"
+                                        Text="{Binding [LoseWeight], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="12" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnCilClicked" ClassId="zhubnout" />
+                                <Button x:Name="BtnCilUdrzovat" Grid.Row="1" Grid.Column="0"
+                                        Text="{Binding [Maintain], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="12" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnCilClicked" ClassId="udrzovat" />
+                                <Button x:Name="BtnCilKondice" Grid.Row="1" Grid.Column="1"
+                                        Text="{Binding [Fitness], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="12" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnCilClicked" ClassId="kondice" />
+                            </Grid>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding [Level], Source={x:Static h:Loc.Instance}}" FontSize="12" TextColor="{DynamicResource TextTertiary}" />
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                                <Button x:Name="BtnUrovenZacatecnik" Grid.Column="0"
+                                        Text="{Binding [Beginner], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="11" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnUrovenClicked" ClassId="zacatecnik" />
+                                <Button x:Name="BtnUrovenPokrocily" Grid.Column="1"
+                                        Text="{Binding [Intermediate], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="11" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnUrovenClicked" ClassId="pokrocily" />
+                                <Button x:Name="BtnUrovenExpert" Grid.Column="2"
+                                        Text="{Binding [Expert], Source={x:Static h:Loc.Instance}}"
+                                        FontSize="11" HeightRequest="38" CornerRadius="10"
+                                        BackgroundColor="{DynamicResource CardBgLight}"
+                                        TextColor="{DynamicResource TextSecondary}"
+                                        Clicked="OnUrovenClicked" ClassId="expert" />
+                            </Grid>
+                        </VerticalStackLayout>
+                        <Frame x:Name="BmiFrame" IsVisible="False"
+                               BackgroundColor="{DynamicResource CardBgLight}"
+                               CornerRadius="12" Padding="14,10"
+                               BorderColor="Transparent" HasShadow="False">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="BMI:" FontSize="14" FontAttributes="Bold"
+                                       TextColor="{DynamicResource TextSecondary}" VerticalOptions="Center" />
+                                <Label x:Name="BmiLabel" Text="-"
+                                       FontSize="18" FontAttributes="Bold"
+                                       TextColor="{StaticResource Primary}" VerticalOptions="Center" />
+                                <Label x:Name="BmiKategorieLabel" Text=""
+                                       FontSize="13" TextColor="{DynamicResource TextTertiary}"
+                                       VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                        <Button Text="{Binding [SaveProfile], Source={x:Static h:Loc.Instance}}"
+                                FontSize="15" FontAttributes="Bold"
+                                HeightRequest="48" CornerRadius="14"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="White"
+                                Clicked="OnUlozitProfilClicked" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

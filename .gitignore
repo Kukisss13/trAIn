@@ -1,0 +1,28 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio
+.vs/
+*.rsuser
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## MAUI
+*.ipa
+*.apk
+*.aab
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Secrets
+*.env
+appsettings.*.json

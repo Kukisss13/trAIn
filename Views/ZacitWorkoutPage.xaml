@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.ZacitWorkoutPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <!-- Pozadí -->
+        <Image Source="gym_bg.png"
+               Aspect="AspectFill"
+               Opacity="0.15" />
+        <BoxView Color="{DynamicResource DarkBg}" Opacity="0.8" />
+
+        <ScrollView>
+            <VerticalStackLayout Padding="25,50,25,30" Spacing="0">
+
+                <!-- Header s tlačítkem zpět -->
+                <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+                    <Frame Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14"
+                           WidthRequest="46" HeightRequest="46"
+                           Padding="0"
+                           BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnZpetClicked" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="&#x2190;" FontSize="22"
+                               TextColor="{DynamicResource TextSecondary}"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Frame>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,0,0,0">
+                        <Label Text="{Binding [StartWorkout], Source={x:Static h:Loc.Instance}}"
+                               FontSize="28" FontAttributes="Bold"
+                               TextColor="{DynamicResource TextPrimary}" />
+                        <Label Text="{Binding [PickSportDesc], Source={x:Static h:Loc.Instance}}"
+                               FontSize="14"
+                               TextColor="{DynamicResource TextTertiary}" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Dekorativní čára -->
+                <BoxView Color="{StaticResource Primary}"
+                         HeightRequest="3"
+                         WidthRequest="60"
+                         HorizontalOptions="Start"
+                         CornerRadius="2"
+                         Margin="0,0,0,25" />
+
+                <!-- Kategorie: Kardio -->
+                <Label Text="{Binding [Cardio], Source={x:Static h:Loc.Instance}}"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}"
+                       CharacterSpacing="2"
+                       Margin="5,0,0,12" />
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" RowSpacing="12" Margin="0,0,0,25">
+                    <!-- Běh -->
+                    <Frame Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="beh" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F3C3;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportRun], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Kolo -->
+                    <Frame Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="kolo" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F6B4;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportCycle], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Plavání -->
+                    <Frame Grid.Column="2"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="plavani" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F3CA;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportSwim], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Kategorie: Síla -->
+                <Label Text="{Binding [Strength], Source={x:Static h:Loc.Instance}}"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}"
+                       CharacterSpacing="2"
+                       Margin="5,0,0,12" />
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" RowSpacing="12" Margin="0,0,0,25">
+                    <!-- Posilovna -->
+                    <Frame Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="posilovna" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F4AA;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportGym], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- HIIT -->
+                    <Frame Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="hiit" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x26A1;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportHiit], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- CrossFit -->
+                    <Frame Grid.Column="2"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="crossfit" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F525;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportCrossfit], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Kategorie: Sporty -->
+                <Label Text="{Binding [Sports], Source={x:Static h:Loc.Instance}}"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}"
+                       CharacterSpacing="2"
+                       Margin="5,0,0,12" />
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" RowSpacing="12" Margin="0,0,0,25">
+                    <!-- Fotbal -->
+                    <Frame Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="fotbal" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x26BD;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportFootball], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Basketbal -->
+                    <Frame Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="basketbal" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F3C0;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportBasketball], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Tenis -->
+                    <Frame Grid.Column="2"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="tenis" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F3BE;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportTennis], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Kategorie: Relax -->
+                <Label Text="{Binding [RelaxFlex], Source={x:Static h:Loc.Instance}}"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}"
+                       CharacterSpacing="2"
+                       Margin="5,0,0,12" />
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" RowSpacing="12" Margin="0,0,0,25">
+                    <!-- Jóga -->
+                    <Frame Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="joga" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F9D8;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportYoga], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Chůze -->
+                    <Frame Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="chuze" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F6B6;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportWalk], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Stretching -->
+                    <Frame Grid.Column="2"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="0"
+                           BorderColor="Transparent" HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSportClicked" CommandParameter="stretching" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Padding="15,20" Spacing="8" HorizontalOptions="Center">
+                            <Label Text="&#x1F938;" FontSize="36" HorizontalOptions="Center" />
+                            <Label Text="{Binding [SportStretching], Source={x:Static h:Loc.Instance}}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Info banner -->
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="20"
+                       BorderColor="Transparent" HasShadow="False"
+                       Margin="0,5,0,0">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{Binding [CalorieTracking], Source={x:Static h:Loc.Instance}, StringFormat='🔥  {0}'}"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="{DynamicResource TextPrimary}" />
+                        <Label Text="{Binding [CalorieTrackingDesc], Source={x:Static h:Loc.Instance}}"
+                               FontSize="13"
+                               TextColor="{DynamicResource TextTertiary}"
+                               LineHeight="1.4" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

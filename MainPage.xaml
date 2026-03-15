@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.MainPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <!-- Pozadí - fotka z posilovny -->
+        <Image Source="gym_bg.png"
+               Aspect="AspectFill"
+               Opacity="0.3" />
+
+        <!-- Tmavý overlay pro čitelnost textu -->
+        <BoxView Color="{DynamicResource DarkBg}" Opacity="0.7" />
+
+        <!-- Hlavní obsah -->
+        <ScrollView>
+            <VerticalStackLayout Padding="25,50,25,30" Spacing="0">
+
+                <!-- Header -->
+                <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,15">
+                <VerticalStackLayout Grid.Column="0" Spacing="8">
+                    <!-- Logo ikona -->
+                    <Image Source="ikona.png"
+                           WidthRequest="70" HeightRequest="70"
+                           HorizontalOptions="Start" />
+
+
+                    <Label FontSize="42"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2"
+                           Margin="0,0,0,0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="tr" TextColor="{DynamicResource TextPrimary}" FontSize="42" FontAttributes="Bold" />
+                                <Span Text="AI" TextColor="{StaticResource Primary}" FontSize="42" FontAttributes="Bold" />
+                                <Span Text="n" TextColor="{DynamicResource TextPrimary}" FontSize="42" FontAttributes="Bold" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding [MainSubtitle], Source={x:Static h:Loc.Instance}}"
+                           FontSize="15"
+                           TextColor="{DynamicResource TextTertiary}"
+                           Margin="0,5,0,0" />
+                </VerticalStackLayout>
+
+                <!-- Nastavení -->
+                <Frame Grid.Column="1"
+                       BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="14"
+                       WidthRequest="46" HeightRequest="46"
+                       Padding="0"
+                       BorderColor="Transparent"
+                       VerticalOptions="Start">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnNastaveniClicked" />
+                    </Frame.GestureRecognizers>
+                    <Label Text="&#x2699;" FontSize="22"
+                           TextColor="{DynamicResource TextSecondary}"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Frame>
+                </Grid>
+
+                <!-- Dekorativní čára -->
+                <BoxView Color="{StaticResource Primary}"
+                         HeightRequest="3"
+                         WidthRequest="60"
+                         HorizontalOptions="Start"
+                         CornerRadius="2"
+                         Margin="0,10,0,25" />
+
+                <!-- Moje cesta -->
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16"
+                       Padding="0"
+                       BorderColor="Transparent"
+                       HasShadow="False"
+                       Margin="0,0,0,25">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMojeCestaClicked" />
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="20,18">
+                        <Image Grid.Column="0"
+                               Source="cesta.png"
+                               WidthRequest="50" HeightRequest="50" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,0,0,0">
+                            <Label Text="{Binding [MyJourney], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="17" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [MyJourneyDesc], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="13"
+                                   TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2"
+                               Text="›"
+                               FontSize="28"
+                               TextColor="{DynamicResource TextTertiary}"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </Frame>
+
+                <!-- Menu karty -->
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- Moje tréninky -->
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16"
+                           Padding="0"
+                           BorderColor="Transparent"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTreninkyClicked" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="20,18">
+                            <Image Grid.Column="0"
+                                   Source="treninky.png"
+                                   WidthRequest="50" HeightRequest="50" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,0,0,0">
+                                <Label Text="{Binding [MyWorkouts], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="17" FontAttributes="Bold"
+                                       TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding [MyWorkoutsDesc], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="13"
+                                       TextColor="{DynamicResource TextTertiary}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2"
+                                   Text="›"
+                                   FontSize="28"
+                                   TextColor="{DynamicResource TextTertiary}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Začít workout -->
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16"
+                           Padding="0"
+                           BorderColor="Transparent"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnZacitWorkoutClicked" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="20,18">
+                            <Image Grid.Column="0"
+                                   Source="workout.png"
+                                   WidthRequest="50" HeightRequest="50" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,0,0,0">
+                                <Label Text="{Binding [StartWorkout], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="17" FontAttributes="Bold"
+                                       TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding [StartWorkoutDesc], Source={x:Static h:Loc.Instance}}"
+                                       FontSize="13"
+                                       TextColor="{DynamicResource TextTertiary}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2"
+                                   Text="›"
+                                   FontSize="28"
+                                   TextColor="{DynamicResource TextTertiary}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                </VerticalStackLayout>
+
+                <!-- Spodní dekorace - činka ASCII art -->
+                <VerticalStackLayout Margin="0,35,0,0" HorizontalOptions="Center" Opacity="0.15">
+                    <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto"
+                          HorizontalOptions="Center" VerticalOptions="Center">
+                        <BoxView Grid.Column="0" Color="{StaticResource Gray400}"
+                                 WidthRequest="20" HeightRequest="40"
+                                 CornerRadius="4" VerticalOptions="Center" />
+                        <BoxView Grid.Column="1" Color="{StaticResource Gray400}"
+                                 WidthRequest="12" HeightRequest="25"
+                                 CornerRadius="3" VerticalOptions="Center" />
+                        <BoxView Grid.Column="2" Color="{StaticResource Gray400}"
+                                 WidthRequest="80" HeightRequest="8"
+                                 CornerRadius="4" VerticalOptions="Center" />
+                        <BoxView Grid.Column="3" Color="{StaticResource Gray400}"
+                                 WidthRequest="12" HeightRequest="25"
+                                 CornerRadius="3" VerticalOptions="Center" />
+                        <BoxView Grid.Column="4" Color="{StaticResource Gray400}"
+                                 WidthRequest="20" HeightRequest="40"
+                                 CornerRadius="4" VerticalOptions="Center" />
+                    </Grid>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

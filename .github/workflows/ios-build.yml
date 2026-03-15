@@ -1,0 +1,37 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    runs-on: macos-14
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Install MAUI workload
+      run: dotnet workload install maui-ios
+
+    - name: Restore dependencies
+      run: dotnet restore -f net9.0-ios
+
+    - name: Build iOS (no signing)
+      run: dotnet build -f net9.0-ios -c Release /p:_RequireCodeSigning=false /p:ApplicationId=com.companyname.treninkovyplanovac
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: ios-build
+        path: bin/Release/net9.0-ios/
+        retention-days: 7

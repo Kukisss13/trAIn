@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.ChatPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto"
+              Padding="20,40,20,12"
+              BackgroundColor="{DynamicResource DarkBg}">
+            <Frame Grid.Column="0"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0" BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnZpetClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="‹" FontSize="24"
+                       TextColor="{DynamicResource TextPrimary}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+            <Label Grid.Column="1" Text="{Binding [AiTrainer], Source={x:Static h:Loc.Instance}}"
+                   FontSize="22" FontAttributes="Bold"
+                   TextColor="{DynamicResource TextPrimary}"
+                   VerticalOptions="Center" Padding="15,0,0,0" />
+            <Frame Grid.Column="2"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0" BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSmazatHistoriiClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="🗑" FontSize="18"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+        </Grid>
+
+        <!-- Chat zprávy -->
+        <CollectionView Grid.Row="1"
+                         x:Name="ZpravyCollection"
+                         ItemsUpdatingScrollMode="KeepLastItemInView"
+                         Margin="12,0">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Padding="30" Spacing="16">
+                    <Label Text="🤖" FontSize="50" HorizontalOptions="Center" />
+                    <Label Text="{Binding [AiGreeting], Source={x:Static h:Loc.Instance}}"
+                           FontSize="20" FontAttributes="Bold"
+                           TextColor="{DynamicResource TextPrimary}"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding [AiGreetingDesc], Source={x:Static h:Loc.Instance}}"
+                           FontSize="14"
+                           TextColor="{DynamicResource TextTertiary}"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+
+                    <!-- Rychlé návrhy -->
+                    <FlexLayout Wrap="Wrap" JustifyContent="Center"
+                                Margin="0,8,0,0">
+                        <Frame BackgroundColor="{DynamicResource CardBg}"
+                               CornerRadius="20" Padding="14,10"
+                               BorderColor="Transparent" HasShadow="False"
+                               Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNavrhClicked"
+                                    CommandParameter="{Binding [SuggestWorkoutFull], Source={x:Static h:Loc.Instance}}" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding [SuggestWorkout], Source={x:Static h:Loc.Instance}, StringFormat='💪 {0}'}"
+                                   FontSize="13"
+                                   TextColor="{DynamicResource TextSecondary}" />
+                        </Frame>
+                        <Frame BackgroundColor="{DynamicResource CardBg}"
+                               CornerRadius="20" Padding="14,10"
+                               BorderColor="Transparent" HasShadow="False"
+                               Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNavrhClicked"
+                                    CommandParameter="{Binding [HowToLoseWeightFull], Source={x:Static h:Loc.Instance}}" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding [HowToLoseWeight], Source={x:Static h:Loc.Instance}, StringFormat='🔥 {0}'}"
+                                   FontSize="13"
+                                   TextColor="{DynamicResource TextSecondary}" />
+                        </Frame>
+                        <Frame BackgroundColor="{DynamicResource CardBg}"
+                               CornerRadius="20" Padding="14,10"
+                               BorderColor="Transparent" HasShadow="False"
+                               Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNavrhClicked"
+                                    CommandParameter="{Binding [ExerciseTechniqueFull], Source={x:Static h:Loc.Instance}}" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding [ExerciseTechnique], Source={x:Static h:Loc.Instance}, StringFormat='🎯 {0}'}"
+                                   FontSize="13"
+                                   TextColor="{DynamicResource TextSecondary}" />
+                        </Frame>
+                        <Frame BackgroundColor="{DynamicResource CardBg}"
+                               CornerRadius="20" Padding="14,10"
+                               BorderColor="Transparent" HasShadow="False"
+                               Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNavrhClicked"
+                                    CommandParameter="{Binding [MotivateMeFull], Source={x:Static h:Loc.Instance}}" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding [MotivateMe], Source={x:Static h:Loc.Instance}, StringFormat='⚡ {0}'}"
+                                   FontSize="13"
+                                   TextColor="{DynamicResource TextSecondary}" />
+                        </Frame>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="4,4">
+                        <!-- User zpráva (vpravo) -->
+                        <Frame IsVisible="{Binding JeUser}"
+                               BackgroundColor="{StaticResource Primary}"
+                               CornerRadius="16"
+                               Padding="14,10"
+                               BorderColor="Transparent"
+                               HasShadow="False"
+                               HorizontalOptions="End"
+                               MaximumWidthRequest="320">
+                            <Label Text="{Binding Obsah}"
+                                   FontSize="15"
+                                   TextColor="White"
+                                   LineBreakMode="WordWrap" />
+                        </Frame>
+                        <!-- Assistant zpráva (vlevo) -->
+                        <Frame IsVisible="{Binding JeAssistant}"
+                               BackgroundColor="{DynamicResource CardBg}"
+                               CornerRadius="16"
+                               Padding="14,10"
+                               BorderColor="Transparent"
+                               HasShadow="False"
+                               HorizontalOptions="Start"
+                               MaximumWidthRequest="320">
+                            <Label Text="{Binding Obsah}"
+                                   FontSize="15"
+                                   TextColor="{DynamicResource TextPrimary}"
+                                   LineBreakMode="WordWrap" />
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Loading indicator -->
+        <HorizontalStackLayout Grid.Row="1"
+                                x:Name="LoadingPanel"
+                                IsVisible="False"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                                Padding="20,8" Spacing="8">
+            <ActivityIndicator IsRunning="True"
+                               Color="{StaticResource Primary}"
+                               WidthRequest="20" HeightRequest="20" />
+            <Label Text="{Binding [AiThinking], Source={x:Static h:Loc.Instance}}"
+                   FontSize="13"
+                   TextColor="{DynamicResource TextTertiary}"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <!-- Input area -->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,Auto"
+              Padding="12,8,12,16"
+              ColumnSpacing="8"
+              BackgroundColor="{DynamicResource DarkBg}">
+            <Frame Grid.Column="0"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="22"
+                   Padding="6,0"
+                   BorderColor="Transparent"
+                   HasShadow="False">
+                <Entry x:Name="ZpravaEntry"
+                       Placeholder="{Binding [TypeMessage], Source={x:Static h:Loc.Instance}}"
+                       FontSize="15"
+                       TextColor="{DynamicResource TextPrimary}"
+                       PlaceholderColor="{DynamicResource TextTertiary}"
+                       BackgroundColor="Transparent"
+                       ReturnType="Send"
+                       Completed="OnOdeslatClicked"
+                       Margin="10,0" />
+            </Frame>
+            <Frame Grid.Column="1"
+                   BackgroundColor="{StaticResource Primary}"
+                   CornerRadius="22"
+                   WidthRequest="44" HeightRequest="44"
+                   Padding="0"
+                   BorderColor="Transparent"
+                   HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOdeslatClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="➤" FontSize="20" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

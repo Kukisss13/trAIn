@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.MojeCestaPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <Image Source="gym_bg.png"
+               Aspect="AspectFill"
+               Opacity="0.15" />
+        <BoxView Color="{DynamicResource DarkBg}" Opacity="0.8" />
+
+        <ScrollView>
+            <VerticalStackLayout Padding="25,50,25,30" Spacing="0">
+
+                <!-- Header -->
+                <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+                    <Frame Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14"
+                           WidthRequest="46" HeightRequest="46"
+                           Padding="0"
+                           BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnZpetClicked" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="&#x2190;" FontSize="22"
+                               TextColor="{DynamicResource TextSecondary}"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Frame>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,0,0,0">
+                        <Label Text="{Binding [MyJourney], Source={x:Static h:Loc.Instance}}"
+                               FontSize="28" FontAttributes="Bold"
+                               TextColor="{DynamicResource TextPrimary}" />
+                        <Label Text="{Binding [YourStatsProgress], Source={x:Static h:Loc.Instance}}"
+                               FontSize="14"
+                               TextColor="{DynamicResource TextTertiary}" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <BoxView Color="{StaticResource Primary}"
+                         HeightRequest="3"
+                         WidthRequest="60"
+                         HorizontalOptions="Start"
+                         CornerRadius="2"
+                         Margin="0,0,0,25" />
+
+                <!-- Hlavni stats grid 2x2 -->
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12" Margin="0,0,0,20">
+
+                    <!-- Workouty -->
+                    <Frame Grid.Row="0" Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="20"
+                           BorderColor="Transparent" HasShadow="False">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="&#x1F4AA;" FontSize="28" />
+                            <Label x:Name="WorkoutyLabel" Text="0"
+                                   FontSize="32" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [WorkoutsLower], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Kilogramy -->
+                    <Frame Grid.Row="0" Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="20"
+                           BorderColor="Transparent" HasShadow="False">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="&#x1F3CB;" FontSize="28" />
+                            <Label x:Name="KilogramyLabel" Text="0 kg"
+                                   FontSize="32" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [Lifted], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Minuty -->
+                    <Frame Grid.Row="1" Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="20"
+                           BorderColor="Transparent" HasShadow="False">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="&#x23F1;" FontSize="28" />
+                            <Label x:Name="MinutyLabel" Text="0 min"
+                                   FontSize="32" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [Trained], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Kilometry -->
+                    <Frame Grid.Row="1" Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="16" Padding="20"
+                           BorderColor="Transparent" HasShadow="False">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="&#x1F3C3;" FontSize="28" />
+                            <Label x:Name="KilometryLabel" Text="0 km"
+                                   FontSize="32" FontAttributes="Bold"
+                                   TextColor="{DynamicResource TextPrimary}" />
+                            <Label Text="{Binding [RunWalked], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                </Grid>
+
+                <!-- Kalorie - plná šírka -->
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="20"
+                       BorderColor="Transparent" HasShadow="False"
+                       Margin="0,0,0,12">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0" Text="&#x1F525;" FontSize="36"
+                               VerticalOptions="Center" Margin="0,0,16,0" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                            <Label x:Name="KalorieLabel" Text="0 kcal"
+                                   FontSize="32" FontAttributes="Bold"
+                                   TextColor="#FF6B35" />
+                            <Label Text="{Binding [TotalBurned], Source={x:Static h:Loc.Instance}}"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource TextTertiary}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- Pocet treninku podle sportu -->
+                <Label Text="{Binding [WorkoutsBySport], Source={x:Static h:Loc.Instance}}"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="{DynamicResource TextTertiary}"
+                       CharacterSpacing="2"
+                       Margin="5,10,0,12" />
+
+                <VerticalStackLayout x:Name="SportyStatsLayout" Spacing="8" Margin="0,0,0,20" />
+
+                <!-- Info -->
+                <Frame BackgroundColor="{DynamicResource CardBg}"
+                       CornerRadius="16" Padding="20"
+                       BorderColor="Transparent" HasShadow="False">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{Binding [YourStats], Source={x:Static h:Loc.Instance}, StringFormat='📊  {0}'}"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="{DynamicResource TextPrimary}" />
+                        <Label Text="{Binding [StatsDesc], Source={x:Static h:Loc.Instance}}"
+                               FontSize="13"
+                               TextColor="{DynamicResource TextTertiary}"
+                               LineHeight="1.4" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

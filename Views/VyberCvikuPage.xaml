@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:h="clr-namespace:TreninkovyPlanovac.Helpers"
+             x:Class="TreninkovyPlanovac.Views.VyberCvikuPage"
+             BackgroundColor="{DynamicResource DarkBg}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20,40,20,20">
+
+        <!-- Zpět + Hlavička -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,15">
+            <Frame Grid.Column="0"
+                   BackgroundColor="{DynamicResource CardBg}"
+                   CornerRadius="12"
+                   WidthRequest="42" HeightRequest="42"
+                   Padding="0"
+                   BorderColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnZpetClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="‹" FontSize="24" TextColor="{DynamicResource TextPrimary}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Frame>
+            <Label Grid.Column="1" Text="{Binding [SelectExercise], Source={x:Static h:Loc.Instance}}"
+                   FontSize="22" FontAttributes="Bold" TextColor="{DynamicResource TextPrimary}"
+                   VerticalOptions="Center" Padding="15,0,0,0" />
+        </Grid>
+
+        <!-- Kategorie filtr -->
+        <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never"
+                    Margin="0,0,0,15">
+            <HorizontalStackLayout x:Name="KategorieStack" Spacing="8" />
+        </ScrollView>
+
+        <!-- Seznam cviků -->
+        <CollectionView Grid.Row="2" x:Name="CviceniList" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="{DynamicResource CardBg}"
+                           CornerRadius="14"
+                           Padding="16,14"
+                           Margin="0,0,0,8"
+                           BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCvikSelected"
+                                                  CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Frame Grid.Column="0"
+                                   BackgroundColor="{DynamicResource IconBg}"
+                                   CornerRadius="12"
+                                   WidthRequest="44" HeightRequest="44"
+                                   Padding="0"
+                                   BorderColor="Transparent">
+                                <Label Text="&#x1F4AA;" FontSize="18"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="12,0,0,0">
+                                <Label Text="{Binding Nazev}"
+                                       FontSize="15" FontAttributes="Bold"
+                                       TextColor="{DynamicResource TextPrimary}" />
+                                <Label Text="{Binding Popis}"
+                                       FontSize="12"
+                                       TextColor="{DynamicResource TextTertiary}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2"
+                                   Text="+"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
