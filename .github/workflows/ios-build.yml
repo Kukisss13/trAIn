@@ -14,16 +14,36 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: List available Xcode versions
+      run: ls -d /Applications/Xcode*.app 2>/dev/null || true
+
     - name: Select latest Xcode
-      run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+      run: |
+        # Find the latest Xcode version available
+        LATEST_XCODE=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | grep -v beta | tail -1)
+        if [ -z "$LATEST_XCODE" ]; then
+          LATEST_XCODE=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | tail -1)
+        fi
+        echo "Using Xcode: $LATEST_XCODE"
+        sudo xcode-select -s "$LATEST_XCODE/Contents/Developer"
+        xcodebuild -version
 
     - name: Setup .NET 9
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9.0.100'
 
-    - name: Install MAUI workload
-      run: dotnet workload install maui-ios --skip-manifest-update
+    - name: Install MAUI workload (pinned version)
+      run: |
+        # List available workload versions for debugging
+        dotnet workload search maui-ios 2>/dev/null || true
+        # Install with rollforward disabled to get SDK-matching version
+        dotnet workload install maui-ios --skip-manifest-update || dotnet workload install maui-ios
+
+    - name: Show installed workload info
+      run: |
+        dotnet workload list
+        dotnet --info | grep -A5 "iOS" || true
 
     - name: Restore dependencies
       run: dotnet restore TreninkovyPlanovac.csproj -p:TargetFrameworks=net9.0-ios
