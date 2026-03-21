@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 using Plugin.Maui.Audio;
 using TreninkovyPlanovac.Services;
 using TreninkovyPlanovac.Views;
@@ -46,6 +47,15 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+#endif
+
+		// iOS: Safe Area na všech stránkách (notch / Dynamic Island)
+#if IOS
+		Microsoft.Maui.Handlers.PageHandler.Mapper.AppendToMapping("SafeArea", (handler, view) =>
+		{
+			if (view is ContentPage page)
+				page.On<Microsoft.Maui.Controls.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+		});
 #endif
 
 		return builder.Build();
